@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Nav from "@/components/Nav";
+import Landing from "@/components/Landing";
 
 // for the font 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,10 +17,12 @@ export default function Layout({children}) {
 
     //login page 
     return (
-      <div className="bg-green-600 w-screen h-screen flex items-center">
-        <div className="text-center w-full">
+      <div className="realtive min-h-screen flex">
+        {/* <div className="text-center w-full">
           <button onClick={() => signIn('google')}className="bg-white p-2 px-4 rounded -lg">Login with Google</button>
-        </div>
+        </div> */}
+        <Landing/>
+        <div className="bg-white flex-grow mt-2 mr-2 mb-2 rounded-lg p-4">{children}</div>
       </div>
     );
   }
