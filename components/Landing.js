@@ -1,8 +1,11 @@
 //This woiuld be the landing page for the users who dont have an account  
-import { set } from "mongoose";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Image from "next/image";
+import logo from '/logo.jpeg'
+
 
 export default function Landing() {
     const inactiveLink = 'flex gap-1 p-1'
@@ -11,34 +14,24 @@ export default function Landing() {
     const router = useRouter();
     // extracting pathname from the router and assign it to a variable to pathname
     const { pathname } = router;
-
-    const [showMenu, setShowMenu] = useState("hidden");
-
-    function menu() {
-        if (showMenu === 'hidden') {
-            return 'hidden';
-        }
-        else {
-            return 'flex flex-col gap-2';
-        }
+    const [toggle, setToggle] = useState(false)
+    const handleButtonClick = () => {
+        // Toggle the value of `toggle`
+        setToggle(!toggle);
     }
 
-    return (
 
-        <div className="bg-yellow-800  54">
 
-            <>
-                logo
-            </>
-            <div className="" onClick={() => setShowMenu("block")}>
-                hamburger
-            </div>
-            <div className={showMenu}>
-                <div onClick={() => setShowMenu("hidden")}>
-                    xmark 
-                    
+    function toggleMenu() {
+        if (!toggle) {
+            return (
+                <div className="top-0 left-0  bg-blue-600 w-[0]    text-white fixed h-full z-40  ease-in-out duration-700 translate-x-0"></div>)
+        }
+        else
+            return (<div className="top-0 left-0 bg-blue-600 w-[35vw]  p-0 text-white fixed h-full  ease-in-out duration-700 translate-x-half">
+                <div onClick={handleButtonClick}>
+                    xmark
                 </div>
-
 
                 <div className="flex items-center flex-shrink-0 text-white mr-6">
                     <Link href={'/'} className={pathname === '/home' ? activeLink : inactiveLink}>
@@ -51,6 +44,7 @@ export default function Landing() {
                         </span>
                     </Link>
                 </div>
+
                 <div className="flex items-center flex-shrink-0 text-white mr-6">
                     <Link href={'/'} className={pathname === '/varities' ? activeLink : inactiveLink}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -62,6 +56,7 @@ export default function Landing() {
                         </span>
                     </Link>
                 </div>
+
                 <div className="flex items-center flex-shrink-0 text-white mr-6">
                     <Link href={'/'} className={pathname === '/time' ? activeLink : inactiveLink}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -73,6 +68,7 @@ export default function Landing() {
                         </span>
                     </Link>
                 </div>
+
                 <div className="flex items-center flex-shrink-0 text-white mr-6">
                     <Link href={'/'} className={pathname === '/contact' ? activeLink : inactiveLink}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -84,7 +80,26 @@ export default function Landing() {
                         </span>
                     </Link>
                 </div>
+            </div>)
+    }
+
+    return (
+
+        <div className="bg-yellow-300  54">
+
+            <Image
+                src={logo}
+                width={150}
+                height={100} />
+            <div className="px-10 h-full  " onClick={() => setToggle(true)}>
+
+                <svg className="down-0"width="50px" height="100px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 18L20 18" stroke="#000000" stroke-width="2" stroke-linecap="round" />
+                    <path d="M4 12L20 12" stroke="#000000" stroke-width="2" stroke-linecap="round" />
+                    <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round" />
+                </svg>
             </div>
+            {toggleMenu()}
 
         </div>
     )
